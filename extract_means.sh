@@ -1,12 +1,13 @@
 #!/bin/bash
 #
 
-# extracting mean and st deviation for roi 
+# extracting mean and st deviation for roi
 # Hanna Nowicka, Brainhack Warsaw, March 2019
+# run by (depending on paths obviously):
+# for i in `ls -d NDAR_IN?????????/baseline/structural/`; do echo $i ; ./extract_means.sh $i ; done
 
-
-dir='..' # where your T1s data is
-tmp_dir='temp' # just temp dir for auxiliary files 
+dir=$1 # where your T1s data is
+tmp_dir='temp' # just temp dir for auxiliary files
 
 mkdir ${dir}/${tmp_dir}
 
@@ -23,9 +24,10 @@ for i in $(seq 134);
         stdev=`fslstats ${dir}/t1_brain.nii.gz  -k ${dir}/${tmp_dir}/tmp_region.nii.gz  -S | awk '{print $1}'`
         echo -n $mean >> ${dir}/means.txt
         echo -n "," >> ${dir}/means.txt
-        echo $stdev  >> ${dir}/stdevs.txt
+        echo -n $stdev >> ${dir}/stdevs.txt
         echo -n "," >> ${dir}/stdevs.txt
 
-        rm -r ${dir}/${tmp_dir}
 
 done
+
+rm -r ${dir}/${tmp_dir}
