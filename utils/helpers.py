@@ -11,3 +11,10 @@ def normalize_data(data: np.array, standardize=True):
 def mse(real, pred):
     print(real.shape, pred.shape)
     return np.mean(np.square(real-pred))
+
+def run_experiment(clf, X, y, val_X, val_Y):
+    clf = clf
+    clf.fit(X,y)
+    preds = clf.predict(val_X)
+    curr_mse = mse(preds, val_Y)
+    return clf,curr_mse
