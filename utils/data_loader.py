@@ -47,6 +47,7 @@ class Dataset:
 	def split_data_labels(self):
 		y = self.final_dataset[self.label_column].values.astype(float)
 		X = self.final_dataset.drop([self.label_column, 'subject', 'subjectkey'], axis=1).values.astype(float)
+		self.meta_data['final_dataset']['columns'] = [x for x in self.meta_data['final_dataset']['columns'] if x not in [self.label_column, 'subject', 'subjectkey']]
 		return X, y
 
 
