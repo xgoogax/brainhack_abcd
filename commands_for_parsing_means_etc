@@ -1,0 +1,12 @@
+# Noted auxiliary commands for parsing results to one file
+# (run from the console, one at the time)
+# (before running check if the paths are adequate to where you're running it from)
+# Hanna Nowicka, BrainhackWAW 2019
+
+
+for i in `ls -d NDAR_IN?????????/baseline/structural/stdevs.txt`; do echo  $i ; k=`echo $i  | awk -F"/" '{ print $1}'` ; echo -n $k  >> parsing_stdev.csv ; echo -n ','>> parsing_stdev.csv ; cat $i >> parsing_stdev.csv ; echo -e "\n"  >> parsing_stdev.csv  ; done
+
+for i in `ls -d NDAR_IN?????????/baseline/structural/means.txt`; do echo  $i ; k=`echo $i  | awk -F"/" '{ print $1}'` ; echo -n $k  >> parsing_means.csv ; echo -n ','>> parsing_means.csv ; cat $i >> parsing_means.csv ; echo -e "\n"  >> parsing_means.csv  ; done
+
+for i in `ls -d NDAR_IN?????????/baseline/structural/entropy.txt`; do echo  $i ; k=`echo $i  | awk -F"/" '{ print $1}'` ; echo -n $k  >> parsing_entropies.csv ; echo -n ','>> parsing_entropies.csv ; cat $i >> parsing_entropies.csv ; echo -e "\n"  >> parsing_entropies.csv  ; done
+
