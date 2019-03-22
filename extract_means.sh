@@ -1,10 +1,10 @@
 #!/bin/bash
 #
 
-# extracting mean and st deviation for roi
+# extracting mean and st deviation and entropy  for roi
 # Hanna Nowicka, Brainhack Warsaw, March 2019
 # run by (depending on paths obviously):
-# for i in `ls -d NDAR_IN?????????/baseline/structural/`; do echo $i ; ./extract_means.sh $i ; done
+# for i in `ls -d NDAR_IN?????????/baseline/structural/`; do echo $i ; fsl_sub -q veryshort.q -l logs ./extract_means_and_entropy.sh $i ; done
 
 dir=$1 # where your T1s data is
 tmp_dir='temp' # just temp dir for auxiliary files
@@ -26,6 +26,11 @@ for i in $(seq 134);
         echo -n "," >> ${dir}/means.txt
         echo -n $stdev >> ${dir}/stdevs.txt
         echo -n "," >> ${dir}/stdevs.txt
+
+        # extract entropy:
+        entro=`fslstats ${dir}/t1_brain.nii.gz  -k ${dir}/${tmp_dir}/tmp_region.nii.gz  -E | awk '{print $1}'`
+        echo -n $entro >> ${dir}/entropy.txt
+        echo -n "," >> ${dir}/entropy.txt
 
 
 done
